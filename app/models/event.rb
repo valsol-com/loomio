@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
   scope :sequenced, -> { where('sequence_id is not null').order('sequence_id asc') }
   scope :chronologically, -> { order('created_at asc') }
 
+  after_create :notify!
   after_create :call_thread_item_created
   after_destroy :call_thread_item_destroyed
 
@@ -30,10 +31,17 @@ class Event < ActiveRecord::Base
     Events::BaseSerializer
   end
 
-  def trigger!
-    # this is called after create, and calls methods defined by the event concerns
-    # included per event type
+  # an event knows about the communities that it is a part of through its eventable.
+  # this defaults to the loomio group, but can be modify for things like poll events,
+  # which have their own network of communities
+  def communities
+    @communities ||= Communities::Base.where(id: eventable.group.community.id)
   end
+
+  def notify!
+    communities.each { |community| NotificationBus.notify!(community, self) }
+  end
+  handle_asynchronously :notify!
 
   private
 
