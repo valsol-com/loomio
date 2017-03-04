@@ -8,7 +8,7 @@ class NotificationBus
   end
 
   def self.notify!(community, event)
-    listeners[CommunityEvent.new(community.class, event.class)].map(&:call)
+    listeners[CommunityEvent.new(community.class, event.class)].map { |listener| listener.call(community, event) }
   end
 
   def self.listen(communities:, events:, &block)
@@ -37,20 +37,20 @@ class NotificationBus
 
   def self.notify_loomio_group(kinds,
     mailer:              ThreadMailer,
-    email:               ->(model){}, # <-- don't be afraid of these; they're just functions which don't do anything when called
+    email:               proc {}, # <-- don't be afraid of these; they're just procs which we can call that do nothing!
+    notify:              proc {},
     email_announcement:  email,
-    notify:              ->(model){},
     notify_announcement: notify,
     live_update:         false,
     join_discussion:     false,
-    also:                ->(event){})
+    also:                proc {})
     notify = email if notify == :same_as_email
     listen(communities: [:loomio_group, :loomio_users], events: kinds) do |community, event|
       email_proc  =  event.announcement ? email_announcement  : email
       notify_proc =  event.announcement ? notify_announcement : notify
 
-      community.notify!          email_proc.call(event.eventable), event, mailer
-      community.notify_in_app!   notify_proc.call(event.eventable), event
+      community.notify!          email_proc.call(event.eventable, event.custom_fields), event, mailer
+      community.notify_in_app!   notify_proc.call(event.eventable, event.custom_fields), event
       community.live_update!     event if live_update
       community.join_discussion! event if join_discussion
 

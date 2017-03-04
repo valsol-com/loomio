@@ -1,11 +1,11 @@
 module Communities::Loomio
-  def notify!(user_ids, event, options = {})
+  def notify!(user_ids, event, mailer)
     recipients_for(user_ids, event).each do |recipient|
-      event.mailer.send(event.kind, recipient, event)
+      mailer.send(event.kind, recipient, event).deliver_now
     end
   end
 
-  def notify_in_app!(user_ids, event, options = {})
+  def notify_in_app!(user_ids, event)
     event.notifications.import(recipients_for(user_ids, event).map do |recipient|
       event.build_notification_for(recipient)
     end)
@@ -13,7 +13,7 @@ module Communities::Loomio
 
   private
 
-  def recipients_for(ids, event)
-    members.where(id: Array(recipient_ids)).without(event.user)
+  def recipients_for(user_ids, event)
+    members.where(id: Array(user_ids)).without(event.user)
   end
 end

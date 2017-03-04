@@ -38,6 +38,6 @@ class Communities::LoomioGroup < Communities::Base
   private
 
   def recipients_for(ids, event)
-    members.where(id: Array(recipient_ids)).without(event.user)
+    members.where(id: Array(ids)).without(event.user)
   end
 end

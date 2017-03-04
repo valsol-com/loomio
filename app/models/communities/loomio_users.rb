@@ -14,8 +14,4 @@ class Communities::LoomioUsers < Communities::Base
   def members
     @members ||= User.where(id: loomio_user_ids)
   end
-
-  def notify!(event)
-    # NOOP for now
-  end
 end

@@ -1,6 +1,4 @@
 class Events::NewMotion < Event
-  include Events::JoinDiscussion
-
   def self.publish!(motion)
     create(kind: "new_motion",
            eventable: motion,

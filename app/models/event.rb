@@ -33,10 +33,13 @@ class Event < ActiveRecord::Base
   end
 
   # an event knows about the communities that it is a part of through its eventable.
-  # this defaults to the loomio group, but can be modify for things like poll events,
-  # which have their own network of communities
+  # we currently break this down by eventable; hopefully there is a cleaner way.
   def communities
-    @communities ||= Communities::LoomioGroup.where(id: eventable.group.community.id)
+    @communities ||= case eventable
+    when Poll, Outcome, Stance then eventable.poll.communities
+    when PaperTrail::Version   then Communities::LoomioGroup.where(id: eventable.item.group.community.id)
+    else                            Communities::LoomioGroup.where(id: eventable.group.community.id)
+    end
   end
 
   def notify!
