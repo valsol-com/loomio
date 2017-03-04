@@ -1,8 +1,4 @@
 class Events::MotionClosedByUser < Event
-  include Events::LiveUpdate
-  include Events::NotifyUser
-  include Events::JoinDiscussion
-
   def self.publish!(motion, closer)
     create(kind: "motion_closed_by_user",
            eventable: motion,
@@ -11,10 +7,6 @@ class Events::MotionClosedByUser < Event
   end
 
   private
-
-  def notification_recipients
-    User.where(id: eventable.author_id)
-  end
 
   def notification_translation_values
     super.merge(publish_outcome: true)

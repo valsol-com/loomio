@@ -1,4 +1,5 @@
 class Communities::LoomioUsers < Communities::Base
+  include Communities::Loomio
   set_community_type :loomio_users
   set_custom_fields  :loomio_user_ids, :group_key
 

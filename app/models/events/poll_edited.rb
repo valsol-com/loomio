@@ -1,6 +1,4 @@
 class Events::PollEdited < Event
-  include Events::PollEvent
-
   def self.publish!(version, actor, announcement = false)
     create(kind: "poll_edited",
            user: actor,
@@ -13,12 +11,4 @@ class Events::PollEdited < Event
   def poll
     eventable.item
   end
-
-  private
-
-  # notify those who have already participated in the poll of the change
-  def announcement_notification_recipients
-    poll.participants
-  end
-  alias :announcement_email_recipients :announcement_notification_recipients
 end

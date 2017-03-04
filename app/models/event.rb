@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   include HasTimeframe
+  include PrettyUrlHelper
 
   KINDS = %w(new_discussion discussion_title_edited discussion_description_edited discussion_edited discussion_moved
              new_comment new_motion new_vote motion_close_date_edited motion_name_edited motion_description_edited
@@ -35,7 +36,7 @@ class Event < ActiveRecord::Base
   # this defaults to the loomio group, but can be modify for things like poll events,
   # which have their own network of communities
   def communities
-    @communities ||= Communities::Base.where(id: eventable.group.community.id)
+    @communities ||= Communities::LoomioGroup.where(id: eventable.group.community.id)
   end
 
   def notify!
@@ -43,7 +44,50 @@ class Event < ActiveRecord::Base
   end
   handle_asynchronously :notify!
 
+  def build_notification_for(user)
+    notifications.build(
+      user:               user,
+      actor:              notification_actor,
+      url:                notification_url,
+      translation_values: notification_translation_values
+    )
+  end
+
   private
+
+  # defines the avatar which appears next to the notification
+  def notification_actor
+    @notification_actor ||= user || eventable.author
+  end
+
+  # defines the link that clicking on the notification takes you to
+  def notification_url
+    @notification_url ||= polymorphic_url(eventable)
+  end
+
+  # defines the values that are passed to the translation for notification text
+  # by default we infer the values needed from the eventable class,
+  # but this method can be overridden with any translation values for a particular event
+  def notification_translation_values
+    case eventable
+    when Poll, Outcome then { name: notification_translation_name, title: notification_translation_title, poll_type: I18n.t(:"poll_types.#{eventable.poll.poll_type}").downcase }
+    else                    { name: notification_translation_name, title: notification_translation_title }
+    end
+  end
+
+  def notification_translation_name
+    notification_actor&.name
+  end
+
+  def notification_translation_title
+    case eventable
+    when PaperTrail::Version              then eventable.item.title
+    when Comment, CommentVote, Discussion then eventable.discussion.title
+    when Group, Membership                then eventable.group.full_name
+    when Poll, Outcome                    then eventable.poll.title
+    when Motion                           then eventable.name
+    end
+  end
 
   def call_thread_item_created
     discussion.thread_item_created!(self) if discussion_id.present?

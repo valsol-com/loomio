@@ -1,6 +1,4 @@
 class Events::DiscussionMoved < Event
-  include Events::LiveUpdate
-
   def self.publish!(discussion, actor, source)
     create(kind: "discussion_moved",
            eventable: source,

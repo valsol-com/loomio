@@ -35,4 +35,27 @@ class NotificationBus
   end
   private_class_method :community_events_for
 
+  def self.notify_loomio_group(kinds,
+    mailer:              ThreadMailer,
+    email:               ->(model){}, # <-- don't be afraid of these; they're just functions which don't do anything when called
+    email_announcement:  email,
+    notify:              ->(model){},
+    notify_announcement: notify,
+    live_update:         false,
+    join_discussion:     false,
+    also:                ->(event){})
+    notify = email if notify == :same_as_email
+    listen(communities: [:loomio_group, :loomio_users], events: kinds) do |community, event|
+      email_proc  =  event.announcement ? email_announcement  : email
+      notify_proc =  event.announcement ? notify_announcement : notify
+
+      community.notify!          email_proc.call(event.eventable), event, mailer
+      community.notify_in_app!   notify_proc.call(event.eventable), event
+      community.live_update!     event if live_update
+      community.join_discussion! event if join_discussion
+
+      also.call(event)
+    end
+  end
+
 end

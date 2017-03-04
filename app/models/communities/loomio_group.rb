@@ -1,4 +1,5 @@
 class Communities::LoomioGroup < Communities::Base
+  include Communities::Loomio
   set_community_type :loomio_group
   set_custom_fields  :group_key
 
@@ -26,9 +27,17 @@ class Communities::LoomioGroup < Communities::Base
     @members ||= group.members
   end
 
-  def notify!(event)
-    # this is currently handled by Event subclasses, but the logic
-    # could be moved here when we need to notify multiple groups of
-    # poll events
+  def join_discussion!(event)
+    DiscussionReader.for_model(event.eventable).update_reader(read_at: event.created_at, participate: true, volume: :loud)
+  end
+
+  def live_update!(event)
+    MessageChannelService.publish(EventCollection.new(event).serialize!, to: group)
+  end
+
+  private
+
+  def recipients_for(ids, event)
+    members.where(id: Array(recipient_ids)).without(event.user)
   end
 end

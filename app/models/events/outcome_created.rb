@@ -1,6 +1,4 @@
 class Events::OutcomeCreated < Event
-  include Events::PollEvent
-
   def self.publish!(outcome)
     create(kind: "outcome_created",
            user: outcome.author,

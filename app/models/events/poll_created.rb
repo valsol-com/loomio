@@ -1,7 +1,4 @@
 class Events::PollCreated < Event
-  include Events::LiveUpdate
-  include Events::PollEvent
-
   def self.publish!(poll)
     create(kind: "poll_created",
            user: poll.author,
