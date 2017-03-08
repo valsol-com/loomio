@@ -1327,7 +1327,7 @@ en:
     dot_vote_title: Dot Vote
     dot_vote_subtitle: Everyone gets some votes to spend
     brainstorm_title: Brainstorm
-    brainstorm_subtitle: "Hear everyone's ideas"
+    brainstorm_subtitle: Gather a diverse set of ideas from the group
 
   poll_common:
     your_response: Your response
@@ -1389,6 +1389,9 @@ en:
     no_votes_yet: No votes have been placed yet.
     change_results_order: Change results order
     show_undecided: Show undecided
+
+  poll_brainstorm_votes_panel:
+    ideas: Ideas
 
   poll_common_did_not_votes_panel:
     undecided: Undecided ({{count}})
