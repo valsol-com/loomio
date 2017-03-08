@@ -1538,6 +1538,9 @@ en:
     brainstorm_created: Brainstorm created
     brainstorm_update: Brainstorm updated
 
+  poll_brainstorm_vote_form:
+    enter_name: "What's your idea?"
+
   poll_thread_item:
     poll:
       poll_created: '<strong>{{author}}</strong> started a new poll: <span>{{title}}</span>'
@@ -1566,6 +1569,13 @@ en:
       poll_edited: '<strong>{{author}}</strong> edited the dot vote: <span>{{title}}</span>'
       poll_expired: 'Dot vote finished: <span>{{title}}</span>'
       poll_closed_by_user: '<strong>{{author}}</strong> closed the dot vote: <span>{{title}}</span>'
+
+    brainstorm:
+      poll_created: '<strong>{{author}}</strong> started a brainstorm: <span>{{title}}</span>'
+      stance_created: '<strong>{{author}}</strong> gave an idea:'
+      poll_edited: '<strong>{{author}}</strong> edited the brainstorm: <span>{{title}}</span>'
+      poll_expired: 'Brainstorm finished: <span>{{title}}</span>'
+      poll_closed_by_user: '<strong>{{author}}</strong> closed the brainstorm: <span>{{title}}</span>'
 
     # outcome
     outcome_created: '<strong>{{author}}</strong> shared an outcome:'

@@ -12,4 +12,4 @@
     .poll-common-card__results-hidden{ng-if: "!showResults()"}
       %md-button.md-primary{ng-click: "press()", translate: "poll_common_card.show_results", aria-label: "{{poll_common_card.show_results | translate}}"}
     .poll-common-card__results-shown{ng-if: "showResults()"}
-      %poll_common_votes_panel{poll: "poll"}
+      %poll_common_directive{poll: "poll", name: "votes_panel"}

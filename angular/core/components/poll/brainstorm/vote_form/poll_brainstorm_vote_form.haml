@@ -1,6 +1,19 @@
 .poll-brainstorm-vote-form
-  -# %h3.lmo-card-subheading{translate: "poll_common.your_response"}
+  %h3.lmo-card-subheading{translate: "poll_common.your_response"}
   %form.poll-brainstorm-vote-form
+    %md-list-item.poll-brainstorm-vote-form__poll-option-names{layout: "column"}
+      .poll-brainstorm-vote-form__poll-option-name.lmo-flex{ng-repeat: "name in pollOptionNames"}
+        .poll-brainstorm-vote-form__email.lmo-flex__grow {{name}}
+        %md-button.lmo-inline-action{ng-click: "remove(name)"}
+          %i.material-icons clear
+
+    %md-list-item.poll-brainstorm-vote-form__add-option{flex: "true", layout: "row"}
+      %md-input-container.lmo-flex__grow{md-no-float: "true"}
+        %textarea.poll-brainstorm-vote-form__add-option-input{type: "text", placeholder: "{{ 'poll_brainstorm_vote_form.enter_name' | translate }}", ng-model: "newName"}
+      %div
+        %md-button.poll-brainstorm-vote-form__option-button.lmo-inline-action{ng-click: "add()", , ng-disabled: "nameNotEntered()", aria-label: "{{ 'poll_brainstorm_vote_form.enter_name_placeholder' | translate }}"}
+          %i.material-icons.poll-brainstorm-vote-form__option-icon add
+
     %poll_common_participant_form{stance: "stance"}
 
     .poll-common-form__actions
