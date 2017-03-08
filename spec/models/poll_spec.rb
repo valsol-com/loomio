@@ -53,32 +53,6 @@ describe Poll do
     end
   end
 
-  describe 'participant_emails=' do
-    before { poll.save }
-    let(:community) { poll.communities.create(community_type: :email) }
-    let(:emails) { ["one@one.com", "two@two.com"] }
-
-    it 'creates a email community if true' do
-      expect { poll.update(participant_emails: emails) }.to change { poll.communities.count }.by(1)
-      expect(Communities::Email.last.visitors.pluck(:email)).to eq emails
-    end
-
-    it 'removes the email community if it exists' do
-      community
-      expect { poll.update(participant_emails: []) }.to change { poll.communities.count }.by(-1)
-    end
-
-    it 'updates the existing email community if it exists' do
-      community
-      expect { poll.update(participant_emails: emails) }.to_not change { poll.communities.count }
-      expect(community.visitors.pluck(:email)).to eq emails
-    end
-
-    it 'does nothing if email community doesnt exist' do
-      expect { poll.update(participant_emails: []) }.to_not change { poll.communities.count }
-    end
-  end
-
   describe 'group_id=' do
     before { group.community; another_group.community; poll.save }
     let(:group) { create :group }
@@ -86,7 +60,7 @@ describe Poll do
 
     it 'creates a group community if true' do
       expect { poll.update(group_id: group.id) }.to change { poll.communities.count }.by(1)
-      expect(poll.communities.last).to eq group.community
+      expect(poll.communities).to include group.community
       expect(poll.reload.group_id).to eq group.id
     end
 
@@ -99,7 +73,7 @@ describe Poll do
     it 'updates the existing group community if it exists' do
       poll.update(group_id: group.id)
       expect { poll.update(group_id: another_group.id) }.to_not change { poll.communities.count }
-      expect(poll.reload.communities.last).to eq another_group.community
+      expect(poll.reload.communities).to include another_group.community
       expect(poll.reload.group_id).to eq another_group.id
     end
 
