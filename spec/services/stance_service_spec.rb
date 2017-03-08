@@ -17,6 +17,8 @@ describe StanceService do
   let(:stance_created) { build :stance, poll: poll, stance_choices: [agree_choice], participant: nil }
   let(:agree_choice) { build(:stance_choice, poll_option: agree) }
   let(:disagree_choice) { build(:stance_choice, poll_option: disagree) }
+  let(:brainstorm) { create :poll, poll_type: :brainstorm, discussion: discussion }
+  let(:brainstorm_stance) { build :stance, poll: brainstorm, choice: "fish" }
 
   before do
     group.add_member! user
@@ -26,6 +28,10 @@ describe StanceService do
   describe 'create' do
     it 'creates a new stance' do
       expect { StanceService.create(stance: stance_created, actor: user) }.to change { Stance.count }.by(1)
+    end
+
+    it 'can create a new poll option with a stance' do
+      expect { StanceService.create(stance: brainstorm_stance, actor: user) }.to change  { brainstorm.poll_options.count }.by(1)
     end
 
     it 'does not create an invalid stance' do

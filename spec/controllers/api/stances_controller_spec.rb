@@ -22,6 +22,16 @@ describe API::StancesController do
     visitor_attributes: { name: "John Doe", email: "john@doe.ninja" }
   }}
 
+  let(:brainstorm) { create :poll, poll_type: :brainstorm, anyone_can_participate: true, poll_option_names: [] }
+  let(:brainstorm_stance_params) {{
+    poll_id: brainstorm.id,
+    stance_choices_attributes: [
+      {poll_option_name: 'to the moon!'},
+      {poll_option_name: 'to mars!'}
+    ],
+    reason: "Here's my thinking"
+  }}
+
   before { group.add_member! user }
 
   describe 'index' do
@@ -98,6 +108,22 @@ describe API::StancesController do
       expect(json['stances'].length).to eq 1
       expect(json['stances'][0]['id']).to eq stance.id
       expect(json['poll_options'].map { |o| o['name'] }).to include poll_option.name
+    end
+
+    it 'can create a stance with a new poll option' do
+      sign_in user
+      stance_choices_count = StanceChoice.count
+      poll_options_count = PollOption.count
+      expect { post :create, stance: brainstorm_stance_params }.to change { Stance.count }.by(1)
+      expect(StanceChoice.count).to eq stance_choices_count + 2
+      expect(PollOption.count).to eq poll_options_count + 2
+
+      stance_choice_names = brainstorm_stance_params[:stance_choices_attributes].map { |a| a[:poll_option_name] }
+      expect(brainstorm.reload.poll_options.pluck(:name)).to eq stance_choice_names
+
+      stance = Stance.last
+      expect(stance.stance_choices.map(&:poll_option).map(&:name)).to eq stance_choice_names
+      expect(stance.reason).to eq brainstorm_stance_params[:reason]
     end
 
     it 'can create a stance with a visitor' do

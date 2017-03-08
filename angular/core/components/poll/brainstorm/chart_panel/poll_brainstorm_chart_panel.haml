@@ -1,0 +1,5 @@
+.poll-brainstorm-chart-panel
+  %ul{ng-repeat: "stance in poll.stances()"}
+    %li.lmo-flex
+      %user_avatar{user: "stance.participant()"}
+      %div.lmo-inline-action {{stance.pollOption().name}}

@@ -4,6 +4,7 @@ en:
     count: Count
     poll: Poll
     dot_vote: Dot Vote
+    brainstorm: Brainstorm
   common:
     confirm_discard_changes: Discard your changes?
     time:
@@ -1325,6 +1326,8 @@ en:
     poll_subtitle: Measure popularity of different options
     dot_vote_title: Dot Vote
     dot_vote_subtitle: Everyone gets some votes to spend
+    brainstorm_title: Brainstorm
+    brainstorm_subtitle: "Hear everyone's ideas"
 
   poll_common:
     your_response: Your response
@@ -1521,6 +1524,19 @@ en:
   poll_dot_vote_vote_form:
     dots_remaining: You have {{count}} dots remaining.
     too_many_dots: You have used too many dots.
+
+  poll_brainstorm_form:
+    tip: Brainstorms can be used to hear loose ideas from everyone in the group
+    start_header: Start a brainstorm
+    edit_header: Edit brainstorm
+    title: Title
+    title_placeholder: 'E.g. what is your ideal vacation destination?'
+    details: Details
+    details_placeholder: Provide any clarifying details people might need to participate
+    start: Start Brainstorm
+    update: Update Brainstorm
+    brainstorm_created: Brainstorm created
+    brainstorm_update: Brainstorm updated
 
   poll_thread_item:
     poll:

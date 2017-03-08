@@ -2,6 +2,7 @@ require 'rails_helper'
 describe Stance do
   describe 'choice shorthand' do
     let(:poll) { Poll.create!(poll_type: 'poll', title: 'which pet?', poll_option_names: %w[dog cat], closing_at: 1.day.from_now, author: author)}
+    let(:brainstorm) { Poll.create!(poll_type: 'brainstorm', title: 'which pet?', author: author) }
     let(:author) { FactoryGirl.create(:user) }
 
     it "string" do
@@ -21,6 +22,12 @@ describe Stance do
       stance = Stance.create(poll: poll, participant: author, choice: {'dog' => 1, 'cat' => 1})
       poll.update_stance_data
       expect(poll.stance_data).to eq({'dog' => 1, 'cat' => 1})
+    end
+
+    it "can build new poll options" do
+      stance = Stance.create(poll: brainstorm, participant: author, choice: ['fish', 'turtle'])
+      expect(brainstorm.reload.poll_options.pluck(:name)).to include 'fish'
+      expect(brainstorm.reload.poll_options.pluck(:name)).to include 'turtle'
     end
 
   end

@@ -24,4 +24,10 @@ describe StanceChoice do
     choice.score = 0
     expect(choice).to_not be_valid
   end
+
+  it 'allows creating a new poll option on the poll' do
+    choice.poll_option_name = "dog"
+    choice.save
+    expect(poll.reload.poll_option_names).to include 'dog'
+  end
 end

@@ -43,6 +43,3 @@ angular.module('loomioApp').factory 'StanceModel', (DraftableModel, AppConfig, M
       _.each _.flatten([optionIds]), (optionId) =>
         @recordStore.stanceChoices.create(pollOptionId: parseInt(optionId), stanceId: @id)
       @
-
-    # prepareForForm: ->
-    #   @stanceChoicesAttributes = _.map(@pollOptionIds(), (id) -> { pollOptionId: id })
