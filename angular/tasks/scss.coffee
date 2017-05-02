@@ -19,7 +19,7 @@ module.exports = ->
     sass(includePaths: paths.core.scss_include),   # convert scss to css (include vendor path for @imports)
     prefix(cascade: false),
     gulp.dest(paths.dist.assets),                  # write assets/app.css
-    cssmin(),                                      # minify app.css file
+    # cssmin(),                                      # minify app.css file
     rename(suffix: '.min'),                        # rename stream to app.min.css
     gulp.dest(paths.dist.assets)                   # write assets/app.min.css
   ]
