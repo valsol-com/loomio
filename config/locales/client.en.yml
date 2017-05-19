@@ -535,6 +535,8 @@ en:
     invite_people: 'Invite'
     visibility_label: 'Visibility'
     options_label: 'Options'
+    current_decisions: Current Activities
+    previous_decisions: Previous Activities
     options:
       label: 'Options'
       edit_group: 'Edit Group Settings'
@@ -991,6 +993,7 @@ en:
     activity: 'Activity'
     activity_placeholder: 'No activity yet!'
     proposals: 'Proposals'
+    previous_polls: 'Previous Activities'
     previous_proposals: 'Previous Proposals'
     load_previous: 'Load earlier activity'
     you_like_this: 'You like this.'

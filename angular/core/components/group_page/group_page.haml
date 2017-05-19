@@ -9,7 +9,8 @@
         %discussions_card{group: "groupPage.group", page_window: "groupPage.pageWindow"}
       .lmo-group-column-right
         %outlet{name: "before-group-page-column-right", model: "groupPage.group"}
-        %group_decisions_card{group: "groupPage.group", ng-if: "groupPage.showPreviousPolls()"}
+        %polls_card{model: "groupPage.group", collection: "activePolls", title: "group_page.current_decisions", limit: "3", ng-if: "groupPage.canViewPolls()"}
+        %polls_card{model: "groupPage.group", collection: "closedPolls", title: "group_page.previous_decisions", limit: "5", ng-if: "groupPage.canViewPolls()"}
         %group_previous_proposals_card{group: "groupPage.group", ng-if: "!groupPage.usePolls"}
         %membership_requests_card{group: "groupPage.group"}
         %members_card{group: "groupPage.group", ng-if: "groupPage.canViewMemberships()"}

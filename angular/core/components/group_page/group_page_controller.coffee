@@ -56,6 +56,9 @@ angular.module('loomioApp').controller 'GroupPageController', ($rootScope, $loca
         prev:        LmoUrlService.group(@group, from: @pageWindow.prev)         if @pageWindow.prev?
         next:        LmoUrlService.group(@group, from: @pageWindow.next)         if @pageWindow.next?
 
+  @canViewPolls = ->
+    @usePolls and AbilityService.canViewGroup(@group)
+
   @canViewMemberships = ->
     AbilityService.canViewMemberships(@group)
 
@@ -73,9 +76,5 @@ angular.module('loomioApp').controller 'GroupPageController', ($rootScope, $loca
 
   @openModal = (modal, resolve)->
     ModalService.open modal, resolve
-
-  @showPreviousPolls = ->
-    @usePolls and
-    AbilityService.canViewPreviousPolls(@group)
 
   return

@@ -49,6 +49,10 @@ angular.module('loomioApp').factory 'GroupModel', (DraftableModel, AppConfig) ->
       _.filter @proposals(), (proposal) ->
         proposal.isClosed()
 
+    activePolls: ->
+      _.filter @polls(), (poll) ->
+        poll.isActive()
+
     closedPolls: ->
       _.filter @polls(), (poll) ->
         !poll.isActive()

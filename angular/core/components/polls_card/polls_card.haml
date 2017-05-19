@@ -1,0 +1,4 @@
+.polls-card{ng-if: "pollCollection.polls().length > 0"}
+  .lmo-card--no-padding
+    %h2.lmo-card-heading.lmo-card-heading-padding{ng-if: "title", translate: "{{title | translate}}"}
+    %poll_common_accordion{poll_collection: "pollCollection"}
