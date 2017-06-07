@@ -4,7 +4,7 @@ angular.module('loomioApp').controller 'StartGroupPageController', ($scope, $loc
   @init = ->
     @group = Records.groups.build
       name: $location.search().name
-      customFields:
+      features:
         pending_emails: _.compact(($location.search().pending_emails || "").split(','))
   @init()
 

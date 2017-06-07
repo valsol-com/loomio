@@ -30,6 +30,11 @@ class Dev::PollsController < Dev::BaseController
     last_email
   end
 
+  def start_group_from_poll
+    poll = create_fake_poll_with_stances
+    redirect_to new_group_url(pending_emails: poll.participants.pluck(:email).join(','))
+  end
+
   def test_activity_items
     user = fake_user
     group = saved fake_group
