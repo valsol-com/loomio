@@ -10,13 +10,7 @@ EventBus.configure do |config|
   config.listen('poll_create')       { |poll|       Draft.purge(user: poll.author, draftable: poll.discussion, field: :poll) }
 
   # Add creator to group on group creation
-  config.listen('group_create') do |group, actor|
-    if actor.is_logged_in?
-      group.add_admin! actor
-    elsif actor.email.present?
-      InvitationService.invite_creator_to_group(group: group, creator: actor)
-    end
-  end
+  config.listen('group_create') { |group, actor| group.add_admin!(actor) if actor.is_logged_in? }
 
   # Index search vectors after model creation
   config.listen('discussion_create',
