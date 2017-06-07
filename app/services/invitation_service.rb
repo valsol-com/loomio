@@ -40,6 +40,7 @@ class InvitationService
 
     raise "Too many pending invitations - group_id: #{group.id} #{group.name}" if num_used > max_allowed
 
+    group.tap { |g| g.features['pending_emails'] = [] }.save
     emails.map do |recipient_email|
       invitation = create_invite_to_join_group(recipient_email: recipient_email,
                                                group: group,

@@ -199,6 +199,8 @@ class Group < ActiveRecord::Base
   define_counter_cache(:pending_invitations_count) { |group| group.invitations.pending.count }
   define_counter_cache(:announcement_recipients_count) { |group| group.memberships.volume_at_least(:normal).count }
 
+  attr_accessor :source_poll_id
+
   def shareable_invitation
     invitations.find_or_create_by(
       single_use:     false,

@@ -10,6 +10,10 @@ angular.module('loomioApp').factory 'GroupModal', ->
         $scope.$close()
       else
         $scope.group = group
-        $scope.currentStep = 'invite'
+        $scope.currentStep = if group.hasPendingEmails()
+          'invitePending'
+        else
+          'inviteNew'
 
+    $scope.$on 'invitePendingComplete', -> $scope.currentStep = 'inviteNew'
     $scope.$on 'inviteComplete', $scope.$close

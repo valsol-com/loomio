@@ -1,4 +1,4 @@
-angular.module('loomioApp').controller 'MembershipsPageController', ($routeParams, $rootScope, Records, LoadingService, ModalService, InvitationModal, RemoveMembershipForm, AbilityService, FlashService, ScrollService) ->
+angular.module('loomioApp').controller 'MembershipsPageController', ($routeParams, $rootScope, Records, LoadingService, ModalService, GroupInvitationModal, RemoveMembershipForm, AbilityService, FlashService, ScrollService) ->
   $rootScope.$broadcast('currentComponent', { page: 'membershipsPage'})
 
   @init = (group) =>
@@ -35,7 +35,7 @@ angular.module('loomioApp').controller 'MembershipsPageController', ($routeParam
     ModalService.open RemoveMembershipForm, membership: -> membership
 
   @invitePeople = ->
-    ModalService.open InvitationModal, group: => @group
+    ModalService.open GroupInvitationModal, group: => @group
 
   filteredMemberships = =>
     if @fragment

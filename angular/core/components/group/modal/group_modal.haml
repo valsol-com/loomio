@@ -6,9 +6,11 @@
         .group-form__group-title{ng-switch-when: "create"}
           %h1.lmo-h1{ng-if: "group.isNew()", translate: "group_form.start_group_heading"}
           %h1.lmo-h1{ng-if: "!group.isNew()", translate: "group_form.edit_group_heading"}
-        .group-form__invitation-title{ng-switch-when: "invite"}
-          %h1.lmo-h1{translate: "invitation_form.invite_people"}
+        %h1.lmo-h1{ng-switch-when: "invitePending", translate: "invitation_form.invite_pending"}
+        %h1.lmo-h1{ng-switch-when: "inviteNew", translate: "invitation_form.invite_people"}
       %material_modal_header_cancel_button
   .md-dialog-content.md-body-1.lmo-slide-animation{ng-switch: "currentStep"}
+    .lmo-disabled-form{ng-if: "isDisabled"}
     %group_form.animated{ng-switch-when: "create", group: "group"}
-    %invitation_form.animated{ng-switch-when: "invite", group: "group"}
+    %group_pending_email_form.animated{ng-switch-when: "invitePending", group: "group"}
+    %group_invitation_form.animated{ng-switch-when: "inviteNew", group: "group"}

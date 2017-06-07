@@ -6,6 +6,10 @@ module GroupService
 
     group.is_referral = actor.groups.size > 0
 
+    if poll = Poll.find_by(id: group.source_poll_id)
+      group.features['pending_emails'] = actor.ability.authorize!(:show, poll).participants.pluck(:email)
+    end
+
     if group.is_parent?
       group.default_group_cover = DefaultGroupCover.sample
       group.creator             = actor if actor.is_logged_in?

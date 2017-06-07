@@ -755,15 +755,18 @@ en:
 
   invitation_form:
     aria_label: 'Invitation form'
-    invite_people: 'Invite People'
+    invite_pending: 'Invite your friends'
+    invite_people: 'Share your group'
     group: 'Group'
     group_placeholder: 'Select a group'
     shareable_link: 'Shareable link'
     copy_link: 'Copy'
+    pending_emails: 'Users to invite'
+    pending_emails_helptext: 'These are the email addresses of the people who participated in your last poll. Select the ones you''d like to invite to your new group.'
     email_addresses: 'Email addresses'
     email_addresses_placeholder: 'e.g. helperbot@loomio.org, friendlybot@loomio.org'
     shareable_link_explanation: 'Copy the link and send it to anyone you want to join the group. This will give them access to all threads in the group.'
-    email_explanation: 'Alternatively, enter email addresses below and Loomio will send them an invitation by email.'
+    email_explanation: 'Enter email addresses below and we will send them an invitation via email.'
     add_custom_message: 'Make your invite personal, '
     add_custom_message_link: 'add a custom message.'
     custom_message: 'Custom message'
@@ -779,6 +782,14 @@ en:
       invitations_sent: '{{count}} invitations sent.'
       no_invitations: 'Uhoh! Please verify the email address is correct and try again.'
       max_invitations: 'If you want to send more than 100 invitations, use a team link.'
+
+  pending_email_form:
+    enter_email: Add more email addresses...
+    send_email: Send {{count}} invitations
+    email_empty: Please enter an email address
+    email_invalid: That doesn't look like a valid email address
+    email_exists: That email is already in the list
+    skip_this_step: Skip this step
 
   add_members_modal:
     aria_label: 'Add members from parent group'

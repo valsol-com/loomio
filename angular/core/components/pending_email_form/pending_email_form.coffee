@@ -27,6 +27,10 @@ angular.module('loomioApp').directive 'pendingEmailForm', ($translate, KeyEventS
         $scope.add()
         $scope.$emit 'emailsSubmitted'
 
+    $scope.skip = ->
+      $scope.emails = []
+      $scope.$emit 'emailsSubmitted'
+
     $scope.checkEmailNotEmpty = ->
       if $scope.newEmail.length <= 0
         $scope.emailValidationError = $translate.instant('pending_email_form.email_empty')
@@ -42,5 +46,5 @@ angular.module('loomioApp').directive 'pendingEmailForm', ($translate, KeyEventS
     $scope.remove = (email) ->
       _.pull($scope.emails, email)
 
-    KeyEventService.registerKeyEvent $scope, 'pressedEnter', $scope.add, (active) ->
-      active.classList.contains('poll-common-share-form__add-option-input')
+    KeyEventService.registerKeyEvent $scope, 'pressedEnter', $scope.addIfValid, (active) ->
+      active.classList.contains('pending-email-form__add-option-input')

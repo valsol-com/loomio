@@ -181,5 +181,9 @@ angular.module('loomioApp').factory 'GroupModel', (DraftableModel, AppConfig) ->
     noInvitationsSent: ->
       @membershipsCount < 2 and @invitationsCount < 2
 
+    hasPendingEmails: ->
+      @features['pending_emails'] and
+      @features['pending_emails'].length > 0
+
     isSubgroupOfSecretParent: ->
       @isSubgroup() && @parent().privacyIsSecret()

@@ -1,6 +1,6 @@
-angular.module('loomioApp').directive 'invitationForm', ->
+angular.module('loomioApp').directive 'groupInvitationForm', ->
   scope: {group: '=', selectGroup: '='}
-  templateUrl: 'generated/components/invitation/form/invitation_form.html'
+  templateUrl: 'generated/components/group/invitation_form/group_invitation_form.html'
   controller: ($scope, Records, Session, AbilityService, FormService, FlashService, RestfulClient, ModalService, AddMembersModal) ->
 
     $scope.availableGroups = ->
@@ -61,10 +61,9 @@ angular.module('loomioApp').directive 'invitationForm', ->
       submitFn: Records.invitations.sendByEmail
       successCallback: (response) =>
         $scope.$emit 'inviteComplete'
-        invitationCount = response.invitations.length
-        switch invitationCount
+        switch response.invitations.length
           when 0 then $scope.noInvitations = true
           when 1 then FlashService.success 'invitation_form.messages.invitation_sent'
-          else        FlashService.success 'invitation_form.messages.invitations_sent', count: invitationCount
+          else        FlashService.success 'invitation_form.messages.invitations_sent', count: response.invitations.length
 
     return

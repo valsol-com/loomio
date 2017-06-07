@@ -110,7 +110,7 @@ class Ability
 
     can :join, Group do |group|
       can?(:show, group) &&
-      (group.membership_granted_upon_request? ||
+      (group.membership_granted_upon == 'request' ||
        group.invitations.find_by(recipient_email: @user.email))
     end
 
@@ -155,7 +155,7 @@ class Ability
 
     can :create, MembershipRequest do |request|
       group = request.group
-      can?(:show, group) and group.membership_granted_upon_approval?
+      can?(:show, group) and group.membership_granted_upon == 'approval'
     end
 
     can :cancel, MembershipRequest, requestor_id: user.id

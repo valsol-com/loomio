@@ -1,12 +1,13 @@
 .pending-email-form__emails {
-  margin-top: -50px;
-  pointer-events: none;
+  max-height: 400px;
+  overflow: auto;
 }
 
 .pending-email-form__email {
   pointer-events: auto;
   width: 100%;
   display: flex;
+  padding: 0 !important;
 }
 
 .pending-email-form__add-button {
@@ -20,5 +21,5 @@
 }
 
 .pending-email-form__add-option {
-  margin-bottom: -26px;
+  margin-bottom: -50px;
 }
