@@ -281,6 +281,7 @@ Loomio::Application.routes.draw do
   get 'g/:key/memberships/:username'       => 'application#boot_angular_ui', as: :group_memberships_username
   get 'g/:new'                             => 'application#boot_angular_ui', as: :new_group
   get 'p/new(/:type)'                      => 'application#boot_angular_ui', as: :new_poll
+  get 'p/example(/:type)'                  => 'polls#example',               as: :example_poll
 
   get 'g/:key/export'                      => 'groups#export',               as: :group_export
   get 'g/:key(/:slug)'                     => 'groups#show',                 as: :group
