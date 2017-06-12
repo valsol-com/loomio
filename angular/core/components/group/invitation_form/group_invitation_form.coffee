@@ -11,18 +11,11 @@ angular.module('loomioApp').directive 'groupInvitationForm', ->
     $scope.fetchShareableInvitation = ->
       Records.invitations.fetchShareableInvitationByGroupId($scope.form.group().id) if $scope.form.group()
     $scope.fetchShareableInvitation()
-    $scope.showCustomMessageField = false
     $scope.isDisabled = false
     $scope.noInvitations = false
 
     $scope.addMembers = ->
       ModalService.open AddMembersModal, group: -> $scope.form.group()
-
-    $scope.showCustomMessageField = ->
-      $scope.addCustomMessageClicked or $scope.form.message
-
-    $scope.addCustomMessage = ->
-      $scope.addCustomMessageClicked = true
 
     $scope.invitees = ->
       # something@something.something where something does not include ; or , or < or >

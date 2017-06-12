@@ -7,6 +7,9 @@ angular.module('loomioApp').directive 'groupPendingEmailForm', (FormService, Fla
       groupId: $scope.group.id
       emails:  $scope.group.features.pending_emails
 
+    $scope.$on 'emailsSkipped', ->
+      $scope.$emit 'invitePendingComplete'
+
     $scope.$on 'emailsSubmitted', FormService.submit $scope, $scope.form,
       drafts: true
       submitFn: Records.invitations.sendByEmail

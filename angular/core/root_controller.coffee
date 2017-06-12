@@ -18,10 +18,7 @@ angular.module('loomioApp').controller 'RootController', ($scope, $timeout, $loc
   $scope.$on 'loggedIn', (event, user) ->
     $scope.refresh()
     if $location.search().start_group?
-      ModalService.open GroupModal, group: ->
-        Records.groups.build
-          customFields:
-            pending_emails: $location.search().pending_emails
+      ModalService.open GroupModal, group: -> Records.groups.build()
     IntercomService.boot()
     MessageChannelService.subscribe()
 

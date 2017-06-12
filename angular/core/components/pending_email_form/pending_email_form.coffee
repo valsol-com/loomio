@@ -28,8 +28,7 @@ angular.module('loomioApp').directive 'pendingEmailForm', ($translate, KeyEventS
         $scope.$emit 'emailsSubmitted'
 
     $scope.skip = ->
-      $scope.emails = []
-      $scope.$emit 'emailsSubmitted'
+      $scope.$emit 'emailsSkipped'
 
     $scope.checkEmailNotEmpty = ->
       if $scope.newEmail.length <= 0
