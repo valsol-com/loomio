@@ -6,7 +6,7 @@ loomio_tags:
 
 loomio_truncate_comment:
   repo:         loomio/loomio_truncate_comment
-  experimental: true
+  #experimental: true
 
 loomio_content_preview:
   repo:         loomio/loomio_content_preview
