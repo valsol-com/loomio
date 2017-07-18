@@ -12,5 +12,5 @@ loomio_content_preview:
   repo:         loomio/loomio_content_preview
 
 loomio_onboarding:
-  repo:         loomio/loomio_onboarding
-  branch:       group-form-update
+  repo:         valsol-com/loomio_onboarding
+  branch:       spanish-translation
