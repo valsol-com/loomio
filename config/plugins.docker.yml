@@ -11,5 +11,5 @@ loomio_content_preview:
   repo:         https://github.com/loomio/loomio_content_preview
 
 loomio_onboarding:
-  repo:         https://github.com/valsol/loomio_onboarding
+  repo:         https://github.com/valsol-com/loomio_onboarding
   branch:       gfu_spanish_translation
